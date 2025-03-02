@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Slideshow</title>
+    <style>
+        /* Dark mode slideshow styles */
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #3d84a8;
+            --indicator-inactive: #4a4a4a;
+            --indicator-active: #e0e0e0;
+            --nav-button-bg: rgba(61, 132, 168, 0.5);
+            --nav-button-hover: rgba(61, 132, 168, 0.8);
+            --caption-bg: rgba(0, 0, 0, 0.7);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            margin: auto;
+            overflow: hidden;
+            background: var(--bg-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Makes images fit properly */
+            background-color: var(--bg-color);
+        }
+        
+        .slide-caption {
+            position: absolute;
+            bottom: 70px;
+            width: 100%;
+            padding: 12px 0;
+            text-align: center;
+            color: var(--text-color);
+            font-size: 20px;
+            font-weight: 500;
+            background-color: var(--caption-bg);
+            backdrop-filter: blur(3px);
+            letter-spacing: 1px;
+        }
+        
+        .indicator-container {
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: var(--indicator-inactive);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: var(--indicator-active);
+            transform: scale(1.2);
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px;
+            color: var(--text-color);
+            font-weight: bold;
+            font-size: 24px;
+            background-color: var(--nav-button-bg);
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+        
+        .prev {
+            left: 20px;
+        }
+        
+        .next {
+            right: 20px;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--nav-button-hover);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .music-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            background-color: var(--caption-bg);
+            color: var(--text-color);
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
+        
+        .music-indicator.visible {
+            opacity: 1;
+        }
+        
+        /* Media queries for better responsiveness */
+        @media (max-width: 768px) {
+            .nav-button {
+                padding: 12px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .slide-caption {
+                font-size: 16px;
+                bottom: 60px;
+            }
+            
+            .indicator {
+                width: 8px;
+                height: 8px;
+                margin: 0 3px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-button {
+                padding: 8px;
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+            
+            .prev {
+                left: 10px;
+            }
+            
+            .next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- Music indicator -->
+        <div id="music-indicator" class="music-indicator">Music Playing</div>
+        
+        <!-- Example of first slide - repeat for all 28 images -->
+        <div class="slide">
+            <img src="img/slide-1.jpg" alt="Slide 1">
+            <div class="slide-caption">enz</div>
+        </div>
+        
+        <!-- Example of second slide -->
+        <div class="slide">
+            <img src="img/slide-2.jpg" alt="Slide 2">
+            <div class="slide-caption">enz</div>
+        </div>
+        <div class="slide">
+            <img src="img/slide-3.jpg" alt="Slide 2">
+            <div class="slide-caption">enz</div>
+        </div>
+        <div class="slide">
+            <img src="img/slide-4.jpg" alt="Slide 2">
+            <div class="slide-caption">enz</div>
+        </div>
+        <div class="slide">
+            <img src="img/slide-5.jpg" alt="Slide 2">
+            <div class="slide-caption">enz</div>
+        </div>
+        <div class="slide">
+            <img src="img/slide-6.jpg" alt="Slide 2">
+            <div class="slide-caption">enz</div>
+        </div>
+        
+        
+        
+        <!-- Continue for all 28 slides -->
+        <!-- ... -->
+        
+        <!-- Navigation buttons with better icons -->
+        <button class="nav-button prev" onclick="prevSlide()">←</button>
+        <button class="nav-button next" onclick="nextSlide()">→</button>
+        
+        <!-- Indicators will be created by JavaScript -->
+        <div class="indicator-container"></div>
+        
+        <!-- Background music -->
+        <audio id="background-music" src="blue_hair.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+        // Add this script to show music indicator
+        function showMusicIndicator() {
+            const indicator = document.getElementById('music-indicator');
+            indicator.classList.add('visible');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                indicator.classList.remove('visible');
+            }, 3000);
+        }
+        
+        // Update startBackgroundMusic function
+        function startBackgroundMusic() {
+            if (backgroundMusic && !musicStarted) {
+                backgroundMusic.play().then(() => {
+                    musicStarted = true;
+                    showMusicIndicator();
+                }).catch(error => {
+                    console.error('Music playback failed:', error);
+                });
+            }
+        }
+    </script>
+    
+    <script src="slideshow.js"></script>
+</body>
+</html>
