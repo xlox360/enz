@@ -1,5 +1,5 @@
 let currentSlide = 0;
-const totalSlides = 28; // For 28 images
+const totalSlides = 6; // For 28 images
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
 let touchStartX = 0;
